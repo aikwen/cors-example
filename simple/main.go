@@ -48,7 +48,8 @@ func cors2(allowOrigin []string) gin.HandlerFunc {
 func routerApi() http.Handler {
     e := gin.New()
     e.Use(gin.Recovery())
-    e.GET("/data",cors2([]string{"http://127.0.0.1:4000", "http://localhost:4000"}), func(c *gin.Context) {
+    e.Use(cors2([]string{"http://127.0.0.1:4000", "http://localhost:4000"}))
+    e.GET("/data", func(c *gin.Context) {
         c.String(200, "router api响应")
     })
 

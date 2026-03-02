@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>Complex CORS (Preflight)</h1>
+    <div id="output">正在发送带有 Content-Type 的 POST 请求...</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 发送复杂请求
+            fetch("http://localhost:4001/data", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json" // 触发 OPTIONS 预检的关键
+                },
+                body: JSON.stringify({ message: "hello" })
+            }).then(
+                function (response) {
+                    response.text().then(function (text) {
+                        document.getElementById("output").innerHTML = text;
+                    });
+                },
+                function (err) {
+                    document.getElementById("output").innerHTML = "Error: " + err;
+                }
+            );
+        });
+    </script>
+</body>
+</html>
